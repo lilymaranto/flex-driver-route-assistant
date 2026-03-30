@@ -39,3 +39,9 @@ export function listenForNative(changeUserFn) {
     // Optional: log or surface detail.reason / detail.sessionId / detail.configId
   });
 }
+
+/** Call once after Braze Web SDK is initialized so native can run the identity handshake. */
+export function notifyWebReady(opts = {}) {
+  if (!window.DemoBridge?.notifyWebReady) return;
+  window.DemoBridge.notifyWebReady(opts);
+}
