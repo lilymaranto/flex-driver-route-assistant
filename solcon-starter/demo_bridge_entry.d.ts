@@ -21,3 +21,9 @@ export function setUser(userId: string, reason?: SyncReason): void;
 export function listenForNative(
   changeUserFn: (userId: string, detail?: Record<string, unknown>) => void
 ): void;
+
+/**
+ * Call once after Braze Web SDK is initialized so native can run the identity handshake.
+ * No-op when DemoBridge is not present (e.g. plain browser).
+ */
+export function notifyWebReady(opts?: { configId?: string | null; userId?: string | null }): void;
