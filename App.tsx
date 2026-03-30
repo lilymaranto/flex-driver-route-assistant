@@ -5,7 +5,7 @@ import type { DriverData, RouteData, Screen, AppNotification, SelectedPackageInf
 import { brazeService } from './services/brazeService';
 import ItineraryView from './components/ItineraryView';
 import { UserSettingsModal, PackageDetailsModal } from './components/modals';
-import { startWebSession, setUser as syncUserToNative, listenForNative } from './solcon-starter/demo_bridge_entry';
+import { startWebSession, setUser as syncUserToNative, listenForNative, notifyWebReady } from './solcon-starter/demo_bridge_entry';
 import personaMap from './solcon-starter/persona-map.json';
 
 // --- Constants and Initial Data ---
@@ -297,6 +297,10 @@ const App: React.FC = () => {
       const success = await brazeService.initialize(BRAZE_CONFIG);
       if (success) {
         syncBrazeProfile(driverData);
+        notifyWebReady({
+          configId: CONFIG_ID,
+          userId: driverData.transponderID,
+        });
       }
     };
     initializeBrazeSession();
